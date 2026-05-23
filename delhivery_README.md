@@ -1,4 +1,4 @@
-# 🚚 Delhivery Logistics — Feature Engineering & Delivery Time Analytics
+# Delhivery Logistics — Feature Engineering & Delivery Time Analytics
 
 ![Python](https://img.shields.io/badge/Python-3776AB?style=flat&logo=python&logoColor=white)
 ![Pandas](https://img.shields.io/badge/Pandas-150458?style=flat&logo=pandas&logoColor=white)
@@ -7,20 +7,20 @@
 
 ---
 
-## 📌 Business Problem
+##  Business Problem
 
-Delhivery's raw shipment data represents each delivery as multiple rows — one per leg of the journey (like connecting flights). The goal is to reconstruct complete end-to-end delivery records, engineer meaningful features, validate routing algorithm estimates through hypothesis testing, and surface actionable insights to reduce delivery times and improve fleet utilisation.
+Delhivery's raw shipment data represents each delivery as multiple rows one per leg of the journey (like connecting flights). The goal is to reconstruct complete end-to-end delivery records, engineer meaningful features, validate routing algorithm estimates through hypothesis testing, and surface actionable insights to reduce delivery times and improve fleet utilisation.
 
 ---
 
-## 📊 Dataset Overview
+##  Dataset Overview
 
-- **144,867 rows × 24 columns** — raw multi-leg shipment records
+- **144,867 rows × 24 columns** - raw multi-leg shipment records
 - Key fields: `trip_uuid`, `source_name`, `destination_name`, `od_start_time`, `od_end_time`, `actual_time`, `osrm_time`, `osrm_distance`, `segment_actual_time`, `route_type`
 
 ---
 
-## 🔍 Approach
+## Approach
 
 ### 1. Data Cleaning
 - Filled missing `source_name` and `destination_name` using mode imputation
@@ -42,7 +42,7 @@ Delhivery's raw shipment data represents each delivery as multiple rows — one 
 |---|---|---|
 | T-test 1 | `od_time_diff` vs `start_scan_to_end_scan` | Significant difference — scan time ≠ actual OD time |
 | T-test 2 | `actual_time` vs `osrm_time` (trip-level) | OSRM systematically **underestimates** actual delivery time |
-| T-test 3 | `actual_time` vs `segment_actual_time` | Significant — aggregation method affects time totals |
+| T-test 3 | `actual_time` vs `segment_actual_time` | Significant - aggregation method affects time totals |
 | T-test 4 | `osrm_distance` vs `segment_osrm_distance` | Distance estimates diverge at trip vs segment level |
 
 ### 5. Outlier Treatment & Preprocessing
@@ -53,21 +53,9 @@ Delhivery's raw shipment data represents each delivery as multiple rows — one 
 
 ---
 
-## 💡 Key Business Insights & Recommendations
+## Key Business Insights & Recommendations
 
-1. **OSRM underestimates real delivery time** — routing model needs recalibration with ground-truth data before use in SLA commitments
-2. **Busiest corridors** concentrated between Tier-1 cities — resource allocation should prioritise these routes for faster turnaround
+1. **OSRM underestimates real delivery time** - routing model needs recalibration with ground-truth data before use in SLA commitments
+2. **Busiest corridors** concentrated between Tier-1 cities - resource allocation should prioritise these routes for faster turnaround
 3. **Weekday and hourly patterns** in trip creation reveal optimal dispatch windows to reduce idle fleet time
-4. **Last-mile delay** is the primary source of deviation from OSRM estimates — targeted operational fixes at destination zones will have the highest ROI
-
----
-
-## 📁 Repository Structure
-
-```
-delhivery-logistics-analysis/
-├── Delhivery_Feature_Engineering.ipynb   # Full analysis notebook
-├── data/
-│   └── delhivery_data.csv
-└── README.md
-```
+4. **Last-mile delay** is the primary source of deviation from OSRM estimates - targeted operational fixes at destination zones will have the highest ROI
